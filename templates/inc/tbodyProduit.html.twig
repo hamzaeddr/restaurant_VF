@@ -1,0 +1,10 @@
+{% for item in lstProduit %}
+    <tr>
+        <td data-id="{{item.ID_FamilleSousC}}">{{item.ID_Produit}}</td>
+        <td>{{item.Produit}}</td>
+        <td>{{item.Tarif_TTC}}</td>
+        <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+        <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+        <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+    </tr>
+{% endfor %}
