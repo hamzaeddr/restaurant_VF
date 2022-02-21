@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CarteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,73 +20,42 @@ class Carte
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Carte;
+    private $IdCarte;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Date_Creation;
+    private $DateCreation;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Id_Dossier;
+    private $TypeClient;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Id_Client;
+    private $NomCarte;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Id_Beneficiare;
+    private $DateValidite;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
-     */
-    private $Type_Client;
-
-    /**
-     * @ORM\Column(type="string", length=80, nullable=true)
-     */
-    private $Nom_Carte;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $Dtae_Validite;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=TypeTarif::class)
-     */
-    private $Id_Tarif;
-
-    /**
-     * @ORM\Column(type="string", length=80, nullable=true)
-     */
-    private $Id_Restaurant;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $Id_User;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $Generer;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $Facturer;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $Annuler;
 
@@ -94,9 +65,45 @@ class Carte
     private $Obs;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Date_Sys;
+    private $DateSys;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="cartes")
+     */
+    private $Client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ClientBeneficiaire::class, inversedBy="cartes")
+     */
+    private $Beneficiaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeTarif::class, inversedBy="cartes")
+     */
+    private $Tarif;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeClient::class, inversedBy="cartes")
+     */
+    private $TypeClientId;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CarteRepartition::class, mappedBy="Carte")
+     */
+    private $carteRepartitions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CarteLg::class, mappedBy="Carte")
+     */
+    private $carteLgs;
+
+    public function __construct()
+    {
+        $this->carteRepartitions = new ArrayCollection();
+        $this->carteLgs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,166 +112,94 @@ class Carte
 
     public function getIdCarte(): ?string
     {
-        return $this->Id_Carte;
+        return $this->IdCarte;
     }
 
-    public function setIdCarte(string $Id_Carte): self
+    public function setIdCarte(string $IdCarte): self
     {
-        $this->Id_Carte = $Id_Carte;
+        $this->IdCarte = $IdCarte;
 
         return $this;
     }
 
     public function getDateCreation(): ?\DateTimeInterface
     {
-        return $this->Date_Creation;
+        return $this->DateCreation;
     }
 
-    public function setDateCreation(?\DateTimeInterface $Date_Creation): self
+    public function setDateCreation(?\DateTimeInterface $DateCreation): self
     {
-        $this->Date_Creation = $Date_Creation;
-
-        return $this;
-    }
-
-    public function getIdDossier(): ?string
-    {
-        return $this->Id_Dossier;
-    }
-
-    public function setIdDossier(?string $Id_Dossier): self
-    {
-        $this->Id_Dossier = $Id_Dossier;
-
-        return $this;
-    }
-
-    public function getIdClient(): ?Client
-    {
-        return $this->Id_Client;
-    }
-
-    public function setIdClient(?Client $Id_Client): self
-    {
-        $this->Id_Client = $Id_Client;
-
-        return $this;
-    }
-
-    public function getIdBeneficiare(): ?string
-    {
-        return $this->Id_Beneficiare;
-    }
-
-    public function setIdBeneficiare(?string $Id_Beneficiare): self
-    {
-        $this->Id_Beneficiare = $Id_Beneficiare;
+        $this->DateCreation = $DateCreation;
 
         return $this;
     }
 
     public function getTypeClient(): ?string
     {
-        return $this->Type_Client;
+        return $this->TypeClient;
     }
 
-    public function setTypeClient(?string $Type_Client): self
+    public function setTypeClient(?string $TypeClient): self
     {
-        $this->Type_Client = $Type_Client;
+        $this->TypeClient = $TypeClient;
 
         return $this;
     }
 
     public function getNomCarte(): ?string
     {
-        return $this->Nom_Carte;
+        return $this->NomCarte;
     }
 
-    public function setNomCarte(?string $Nom_Carte): self
+    public function setNomCarte(?string $NomCarte): self
     {
-        $this->Nom_Carte = $Nom_Carte;
+        $this->NomCarte = $NomCarte;
 
         return $this;
     }
 
-    public function getDtaeValidite(): ?\DateTimeInterface
+    public function getDateValidite(): ?\DateTimeInterface
     {
-        return $this->Dtae_Validite;
+        return $this->DateValidite;
     }
 
-    public function setDtaeValidite(?\DateTimeInterface $Dtae_Validite): self
+    public function setDateValidite(?\DateTimeInterface $DateValidite): self
     {
-        $this->Dtae_Validite = $Dtae_Validite;
+        $this->DateValidite = $DateValidite;
 
         return $this;
     }
 
-    public function getIdTarif(): ?TypeTarif
-    {
-        return $this->Id_Tarif;
-    }
-
-    public function setIdTarif(?TypeTarif $Id_Tarif): self
-    {
-        $this->Id_Tarif = $Id_Tarif;
-
-        return $this;
-    }
-
-    public function getIdRestaurant(): ?string
-    {
-        return $this->Id_Restaurant;
-    }
-
-    public function setIdRestaurant(?string $Id_Restaurant): self
-    {
-        $this->Id_Restaurant = $Id_Restaurant;
-
-        return $this;
-    }
-
-    public function getIdUser(): ?string
-    {
-        return $this->Id_User;
-    }
-
-    public function setIdUser(?string $Id_User): self
-    {
-        $this->Id_User = $Id_User;
-
-        return $this;
-    }
-
-    public function getGenerer(): ?int
+    public function getGenerer(): ?bool
     {
         return $this->Generer;
     }
 
-    public function setGenerer(?int $Generer): self
+    public function setGenerer(?bool $Generer): self
     {
         $this->Generer = $Generer;
 
         return $this;
     }
 
-    public function getFacturer(): ?int
+    public function getFacturer(): ?bool
     {
         return $this->Facturer;
     }
 
-    public function setFacturer(?int $Facturer): self
+    public function setFacturer(?bool $Facturer): self
     {
         $this->Facturer = $Facturer;
 
         return $this;
     }
 
-    public function getAnnuler(): ?int
+    public function getAnnuler(): ?bool
     {
         return $this->Annuler;
     }
 
-    public function setAnnuler(?int $Annuler): self
+    public function setAnnuler(?bool $Annuler): self
     {
         $this->Annuler = $Annuler;
 
@@ -285,12 +220,120 @@ class Carte
 
     public function getDateSys(): ?\DateTimeInterface
     {
-        return $this->Date_Sys;
+        return $this->DateSys;
     }
 
-    public function setDateSys(?\DateTimeInterface $Date_Sys): self
+    public function setDateSys(?\DateTimeInterface $DateSys): self
     {
-        $this->Date_Sys = $Date_Sys;
+        $this->DateSys = $DateSys;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->Client;
+    }
+
+    public function setClient(?Client $Client): self
+    {
+        $this->Client = $Client;
+
+        return $this;
+    }
+
+    public function getBeneficiaire(): ?ClientBeneficiaire
+    {
+        return $this->Beneficiaire;
+    }
+
+    public function setBeneficiaire(?ClientBeneficiaire $Beneficiaire): self
+    {
+        $this->Beneficiaire = $Beneficiaire;
+
+        return $this;
+    }
+
+    public function getTarif(): ?TypeTarif
+    {
+        return $this->Tarif;
+    }
+
+    public function setTarif(?TypeTarif $Tarif): self
+    {
+        $this->Tarif = $Tarif;
+
+        return $this;
+    }
+
+    public function getTypeClientId(): ?TypeClient
+    {
+        return $this->TypeClientId;
+    }
+
+    public function setTypeClientId(?TypeClient $TypeClientId): self
+    {
+        $this->TypeClientId = $TypeClientId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CarteRepartition[]
+     */
+    public function getCarteRepartitions(): Collection
+    {
+        return $this->carteRepartitions;
+    }
+
+    public function addCarteRepartition(CarteRepartition $carteRepartition): self
+    {
+        if (!$this->carteRepartitions->contains($carteRepartition)) {
+            $this->carteRepartitions[] = $carteRepartition;
+            $carteRepartition->setCarte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarteRepartition(CarteRepartition $carteRepartition): self
+    {
+        if ($this->carteRepartitions->removeElement($carteRepartition)) {
+            // set the owning side to null (unless already changed)
+            if ($carteRepartition->getCarte() === $this) {
+                $carteRepartition->setCarte(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CarteLg[]
+     */
+    public function getCarteLgs(): Collection
+    {
+        return $this->carteLgs;
+    }
+
+    public function addCarteLg(CarteLg $carteLg): self
+    {
+        if (!$this->carteLgs->contains($carteLg)) {
+            $this->carteLgs[] = $carteLg;
+            $carteLg->setCarte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarteLg(CarteLg $carteLg): self
+    {
+        if ($this->carteLgs->removeElement($carteLg)) {
+            // set the owning side to null (unless already changed)
+            if ($carteLg->getCarte() === $this) {
+                $carteLg->setCarte(null);
+            }
+        }
 
         return $this;
     }

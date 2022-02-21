@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,40 +20,63 @@ class TypeClient
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Type_Client;
+    private $TypeClient;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\OneToMany(targetEntity=Carte::class, mappedBy="TypeClientId")
      */
-    private $Type_Client;
+    private $cartes;
+
+    public function __construct()
+    {
+        $this->cartes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdTypeClient(): ?int
+    public function getTypeClient(): ?string
     {
-        return $this->Id_Type_Client;
+        return $this->TypeClient;
     }
 
-    public function setIdTypeClient(int $Id_Type_Client): self
+    public function setTypeClient(string $TypeClient): self
     {
-        $this->Id_Type_Client = $Id_Type_Client;
+        $this->TypeClient = $TypeClient;
 
         return $this;
     }
 
-    public function getTypeClient(): ?string
+    /**
+     * @return Collection|Carte[]
+     */
+    public function getCartes(): Collection
     {
-        return $this->Type_Client;
+        return $this->cartes;
     }
 
-    public function setTypeClient(?string $Type_Client): self
+    public function addCarte(Carte $carte): self
     {
-        $this->Type_Client = $Type_Client;
+        if (!$this->cartes->contains($carte)) {
+            $this->cartes[] = $carte;
+            $carte->setTypeClientId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarte(Carte $carte): self
+    {
+        if ($this->cartes->removeElement($carte)) {
+            // set the owning side to null (unless already changed)
+            if ($carte->getTypeClientId() === $this) {
+                $carte->setTypeClientId(null);
+            }
+        }
 
         return $this;
     }
