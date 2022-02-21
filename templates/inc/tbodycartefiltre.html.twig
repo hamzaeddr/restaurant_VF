@@ -1,0 +1,28 @@
+<table>
+<tbody class="tbodycarte" style="max-height: 35rem !important;overflow-x: hidden !important;">
+                                        {% for item in lstCarteF %}
+
+                                        <tr >
+                                            <td id="tdID" data-id="{{item.ID_Carte}}">{{item.ID_Carte}}</td>
+                                            <td>{{item.Date_Création | date('D')}}</td>
+                                            <td>{{item.Date_Validité | date('d-m-Y')}}</td>
+                                            <td>{{item.Client}}</td>
+                                            <td>{{item.Bénéficiaire }}</td>
+                                            <td>{{item.Type_Client}}</td>
+                                            <td>{{item.Obs}}</td>
+                                            {% if item.Générer == 0 %}
+                                            <td><input type="checkbox" name="" class="checkGenerer" id="" disabled="disabled"></td>
+                                            {% else %}
+                                            <td><input type="checkbox" name="" class="checkGenerer" id="" disabled="disabled" checked></td>
+                                            {% endif %}
+                                             {% if item.Facturer == 0 %}
+                                            <td><input type="checkbox" name="" class="checkFacturer" id="" disabled="disabled"></td>
+                                            {% else %}
+                                            <td><input type="checkbox" name="" class="checkFacturer" id="" disabled="disabled" checked></td>
+                                            {% endif %}
+                                        </tr>
+                                        
+                                        {% endfor %}
+
+                                    </tbody>
+                                    </table>

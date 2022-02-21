@@ -1,0 +1,14 @@
+
+  <tbody class="tbody2" style="height:25rem !important;">
+                        {% for item in lstPro %}        
+             <tr>
+      <td style="display:none">{{item.ID_Produit}}</td>       
+      <td data-id="{{item.ID_Repartition}}">{{item.produit}}</td>
+      <td>{{item.familleSousC}}</td>
+      <td></td>
+      <td>{{item.Stock_Carte}}</td>
+  </tr>                   
+
+{% endfor %}
+                            </tbody>
+ 
