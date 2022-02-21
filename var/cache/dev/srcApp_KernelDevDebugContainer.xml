@@ -332,13 +332,26 @@
     <service id="kernel" class="App\Kernel" public="true" synthetic="true">
       <tag name="routing.route_loader"/>
     </service>
-    <service id="App\Repository\ArticleQteRepository" class="App\Repository\ArticleQteRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
+    <service id="App\Controller\CarteController" class="App\Controller\CarteController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\CarteController"/>
+      </call>
     </service>
-    <service id="App\Repository\ArticlesRepository" class="App\Repository\ArticlesRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
+    <service id="App\Controller\ProduitController" class="App\Controller\ProduitController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\ProduitController"/>
+      </call>
+    </service>
+    <service id="App\Controller\RepartitionController" class="App\Controller\RepartitionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\RepartitionController"/>
+      </call>
     </service>
     <service id="App\Repository\CarteLgRepository" class="App\Repository\CarteLgRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -360,11 +373,15 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\FamillesRepository" class="App\Repository\FamillesRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\FamilleCarteRepository" class="App\Repository\FamilleCarteRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\FamillesSousRepository" class="App\Repository\FamillesSousRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\FamilleSousCRepository" class="App\Repository\FamilleSousCRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ProduitRepository" class="App\Repository\ProduitRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -372,11 +389,15 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\ProduitsRepository" class="App\Repository\ProduitsRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\RepartitionRepository" class="App\Repository\RepartitionRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\TypeClientRepository" class="App\Repository\TypeClientRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TypeFamilleRepository" class="App\Repository\TypeFamilleRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -385,6 +406,14 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\TypeTarifRepository" class="App\Repository\TypeTarifRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TypeTvaRepository" class="App\Repository\TypeTvaRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\UniteRepository" class="App\Repository\UniteRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -3220,7 +3249,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.Mg89kcl"/>
+      <argument type="service" id=".service_locator.yDm7V0t"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4878,10 +4907,15 @@
       <tag name="maker.command"/>
       <argument>C:\xampp\htdocs\restaurant_VF</argument>
     </service>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleQteRepository" class="App\Repository\ArticleQteRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\ArticleQteRepository" class="App\Repository\ArticleQteRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticlesRepository" class="App\Repository\ArticlesRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\ArticlesRepository" class="App\Repository\ArticlesRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CarteController" class="App\Controller\CarteController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CarteController" class="App\Controller\CarteController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CarteController" class="App\Controller\CarteController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ProduitController" class="App\Controller\ProduitController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ProduitController" class="App\Controller\ProduitController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ProduitController" class="App\Controller\ProduitController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RepartitionController" class="App\Controller\RepartitionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RepartitionController" class="App\Controller\RepartitionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\RepartitionController" class="App\Controller\RepartitionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CarteLgRepository" class="App\Repository\CarteLgRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CarteLgRepository" class="App\Repository\CarteLgRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CarteRepartitionRepository" class="App\Repository\CarteRepartitionRepository" autowire="true" abstract="true"/>
@@ -4892,20 +4926,28 @@
     <service id=".abstract.instanceof.App\Repository\ClientBeneficiaireRepository" class="App\Repository\ClientBeneficiaireRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ClientRepository" class="App\Repository\ClientRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FamillesRepository" class="App\Repository\FamillesRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\FamillesRepository" class="App\Repository\FamillesRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FamillesSousRepository" class="App\Repository\FamillesSousRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\FamillesSousRepository" class="App\Repository\FamillesSousRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FamilleCarteRepository" class="App\Repository\FamilleCarteRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\FamilleCarteRepository" class="App\Repository\FamilleCarteRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FamilleSousCRepository" class="App\Repository\FamilleSousCRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\FamilleSousCRepository" class="App\Repository\FamilleSousCRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ProduitRepository" class="App\Repository\ProduitRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ProduitRepository" class="App\Repository\ProduitRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ProduitTarifRepository" class="App\Repository\ProduitTarifRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ProduitTarifRepository" class="App\Repository\ProduitTarifRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ProduitsRepository" class="App\Repository\ProduitsRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\ProduitsRepository" class="App\Repository\ProduitsRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RepartitionRepository" class="App\Repository\RepartitionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\RepartitionRepository" class="App\Repository\RepartitionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeClientRepository" class="App\Repository\TypeClientRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TypeClientRepository" class="App\Repository\TypeClientRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeFamilleRepository" class="App\Repository\TypeFamilleRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TypeFamilleRepository" class="App\Repository\TypeFamilleRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeProduitRepository" class="App\Repository\TypeProduitRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TypeProduitRepository" class="App\Repository\TypeProduitRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeTarifRepository" class="App\Repository\TypeTarifRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TypeTarifRepository" class="App\Repository\TypeTarifRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeTvaRepository" class="App\Repository\TypeTvaRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TypeTvaRepository" class="App\Repository\TypeTvaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UniteRepository" class="App\Repository\UniteRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UniteRepository" class="App\Repository\UniteRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.CmORmuK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5270,23 +5312,25 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service_closure" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.Mg89kcl" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.yDm7V0t" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Repository\ArticleQteRepository" type="service_closure" id="App\Repository\ArticleQteRepository"/>
-        <argument key="App\Repository\ArticlesRepository" type="service_closure" id="App\Repository\ArticlesRepository"/>
         <argument key="App\Repository\CarteLgRepository" type="service_closure" id="App\Repository\CarteLgRepository"/>
         <argument key="App\Repository\CarteRepartitionRepository" type="service_closure" id="App\Repository\CarteRepartitionRepository"/>
         <argument key="App\Repository\CarteRepository" type="service_closure" id="App\Repository\CarteRepository"/>
         <argument key="App\Repository\ClientBeneficiaireRepository" type="service_closure" id="App\Repository\ClientBeneficiaireRepository"/>
         <argument key="App\Repository\ClientRepository" type="service_closure" id="App\Repository\ClientRepository"/>
-        <argument key="App\Repository\FamillesRepository" type="service_closure" id="App\Repository\FamillesRepository"/>
-        <argument key="App\Repository\FamillesSousRepository" type="service_closure" id="App\Repository\FamillesSousRepository"/>
+        <argument key="App\Repository\FamilleCarteRepository" type="service_closure" id="App\Repository\FamilleCarteRepository"/>
+        <argument key="App\Repository\FamilleSousCRepository" type="service_closure" id="App\Repository\FamilleSousCRepository"/>
+        <argument key="App\Repository\ProduitRepository" type="service_closure" id="App\Repository\ProduitRepository"/>
         <argument key="App\Repository\ProduitTarifRepository" type="service_closure" id="App\Repository\ProduitTarifRepository"/>
-        <argument key="App\Repository\ProduitsRepository" type="service_closure" id="App\Repository\ProduitsRepository"/>
+        <argument key="App\Repository\RepartitionRepository" type="service_closure" id="App\Repository\RepartitionRepository"/>
         <argument key="App\Repository\TypeClientRepository" type="service_closure" id="App\Repository\TypeClientRepository"/>
+        <argument key="App\Repository\TypeFamilleRepository" type="service_closure" id="App\Repository\TypeFamilleRepository"/>
         <argument key="App\Repository\TypeProduitRepository" type="service_closure" id="App\Repository\TypeProduitRepository"/>
         <argument key="App\Repository\TypeTarifRepository" type="service_closure" id="App\Repository\TypeTarifRepository"/>
+        <argument key="App\Repository\TypeTvaRepository" type="service_closure" id="App\Repository\TypeTvaRepository"/>
+        <argument key="App\Repository\UniteRepository" type="service_closure" id="App\Repository\UniteRepository"/>
       </argument>
     </service>
     <service id="debug.security.voter.security.access.authenticated_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
@@ -5467,6 +5511,41 @@
         <argument key="translation.loader.xliff" type="service_closure" id="translation.loader.xliff"/>
         <argument key="translation.loader.yml" type="service_closure" id="translation.loader.yml"/>
       </argument>
+    </service>
+    <service id=".service_locator.vdmMuyE" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service_closure" id="doctrine" on-invalid="ignore"/>
+        <argument key="form.factory" type="service_closure" id="form.factory" on-invalid="ignore"/>
+        <argument key="http_kernel" type="service_closure" id="http_kernel" on-invalid="ignore"/>
+        <argument key="parameter_bag" type="service_closure" id="parameter_bag" on-invalid="ignore"/>
+        <argument key="request_stack" type="service_closure" id="request_stack" on-invalid="ignore"/>
+        <argument key="router" type="service_closure" id="router.default" on-invalid="ignore"/>
+        <argument key="security.authorization_checker" type="service_closure" id="security.authorization_checker" on-invalid="ignore"/>
+        <argument key="security.csrf.token_manager" type="service_closure" id="security.csrf.token_manager" on-invalid="ignore"/>
+        <argument key="security.token_storage" type="service_closure" id="security.token_storage" on-invalid="ignore"/>
+        <argument key="serializer" type="service_closure" id="serializer" on-invalid="ignore"/>
+        <argument key="session" type="service_closure" id="session" on-invalid="ignore"/>
+        <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\CarteController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\CarteController"/>
+      <argument>App\Controller\CarteController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\ProduitController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\ProduitController"/>
+      <argument>App\Controller\ProduitController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\RepartitionController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\RepartitionController"/>
+      <argument>App\Controller\RepartitionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
     <service id=".service_locator.XSes1R5" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CarteRepartitionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,22 +20,17 @@ class CarteRepartition
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Repartition;
+    private $IdRepartition;
 
     /**
-     * @ORM\OneToOne(targetEntity=Carte::class, cascade={"persist", "remove"})
-     */
-    private $Id_Carte;
-
-    /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $Repartition;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="time", nullable=true)
      */
     private $Heure;
 
@@ -43,19 +40,29 @@ class CarteRepartition
     private $Pax;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $Id_Operation;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $Facturer;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Date_Sys;
+    private $DateSys;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Carte::class, inversedBy="carteRepartitions")
+     */
+    private $Carte;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CarteLg::class, mappedBy="Repartition")
+     */
+    private $carteLgs;
+
+    public function __construct()
+    {
+        $this->carteLgs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,24 +71,12 @@ class CarteRepartition
 
     public function getIdRepartition(): ?string
     {
-        return $this->Id_Repartition;
+        return $this->IdRepartition;
     }
 
-    public function setIdRepartition(string $Id_Repartition): self
+    public function setIdRepartition(string $IdRepartition): self
     {
-        $this->Id_Repartition = $Id_Repartition;
-
-        return $this;
-    }
-
-    public function getIdCarte(): ?Carte
-    {
-        return $this->Id_Carte;
-    }
-
-    public function setIdCarte(?Carte $Id_Carte): self
-    {
-        $this->Id_Carte = $Id_Carte;
+        $this->IdRepartition = $IdRepartition;
 
         return $this;
     }
@@ -91,19 +86,19 @@ class CarteRepartition
         return $this->Repartition;
     }
 
-    public function setRepartition(?string $Repartition): self
+    public function setRepartition(string $Repartition): self
     {
         $this->Repartition = $Repartition;
 
         return $this;
     }
 
-    public function getHeure(): ?string
+    public function getHeure(): ?\DateTimeInterface
     {
         return $this->Heure;
     }
 
-    public function setHeure(?string $Heure): self
+    public function setHeure(?\DateTimeInterface $Heure): self
     {
         $this->Heure = $Heure;
 
@@ -122,24 +117,12 @@ class CarteRepartition
         return $this;
     }
 
-    public function getIdOperation(): ?string
-    {
-        return $this->Id_Operation;
-    }
-
-    public function setIdOperation(?string $Id_Operation): self
-    {
-        $this->Id_Operation = $Id_Operation;
-
-        return $this;
-    }
-
-    public function getFacturer(): ?string
+    public function getFacturer(): ?bool
     {
         return $this->Facturer;
     }
 
-    public function setFacturer(?string $Facturer): self
+    public function setFacturer(?bool $Facturer): self
     {
         $this->Facturer = $Facturer;
 
@@ -148,12 +131,54 @@ class CarteRepartition
 
     public function getDateSys(): ?\DateTimeInterface
     {
-        return $this->Date_Sys;
+        return $this->DateSys;
     }
 
-    public function setDateSys(?\DateTimeInterface $Date_Sys): self
+    public function setDateSys(?\DateTimeInterface $DateSys): self
     {
-        $this->Date_Sys = $Date_Sys;
+        $this->DateSys = $DateSys;
+
+        return $this;
+    }
+
+    public function getCarte(): ?Carte
+    {
+        return $this->Carte;
+    }
+
+    public function setCarte(?Carte $Carte): self
+    {
+        $this->Carte = $Carte;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CarteLg[]
+     */
+    public function getCarteLgs(): Collection
+    {
+        return $this->carteLgs;
+    }
+
+    public function addCarteLg(CarteLg $carteLg): self
+    {
+        if (!$this->carteLgs->contains($carteLg)) {
+            $this->carteLgs[] = $carteLg;
+            $carteLg->setRepartition($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarteLg(CarteLg $carteLg): self
+    {
+        if ($this->carteLgs->removeElement($carteLg)) {
+            // set the owning side to null (unless already changed)
+            if ($carteLg->getRepartition() === $this) {
+                $carteLg->setRepartition(null);
+            }
+        }
 
         return $this;
     }
