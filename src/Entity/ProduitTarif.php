@@ -18,79 +18,53 @@ class ProduitTarif
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Produits::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="float")
      */
-    private $Id_Produit;
+    private $TarifTtc;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeTarif::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Id_Tarif;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $Tarif_TTC;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      */
     private $Taux;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
      */
-    private $Tarif_HT;
+    private $TarifHt;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $Visib;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Date_Sys;
+    private $DateSys;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="produitTarifs")
+     */
+    private $Produit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeTarif::class, inversedBy="produitTarifs")
+     */
+    private $Tarif;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdProduit(): ?Produits
+    public function getTarifTtc(): ?float
     {
-        return $this->Id_Produit;
+        return $this->TarifTtc;
     }
 
-    public function setIdProduit(?Produits $Id_Produit): self
+    public function setTarifTtc(float $TarifTtc): self
     {
-        $this->Id_Produit = $Id_Produit;
-
-        return $this;
-    }
-
-    public function getIdTarif(): ?TypeTarif
-    {
-        return $this->Id_Tarif;
-    }
-
-    public function setIdTarif(?TypeTarif $Id_Tarif): self
-    {
-        $this->Id_Tarif = $Id_Tarif;
-
-        return $this;
-    }
-
-    public function getTarifTTC(): ?float
-    {
-        return $this->Tarif_TTC;
-    }
-
-    public function setTarifTTC(?float $Tarif_TTC): self
-    {
-        $this->Tarif_TTC = $Tarif_TTC;
+        $this->TarifTtc = $TarifTtc;
 
         return $this;
     }
@@ -100,31 +74,31 @@ class ProduitTarif
         return $this->Taux;
     }
 
-    public function setTaux(?float $Taux): self
+    public function setTaux(float $Taux): self
     {
         $this->Taux = $Taux;
 
         return $this;
     }
 
-    public function getTarifHT(): ?float
+    public function getTarifHt(): ?float
     {
-        return $this->Tarif_HT;
+        return $this->TarifHt;
     }
 
-    public function setTarifHT(?float $Tarif_HT): self
+    public function setTarifHt(float $TarifHt): self
     {
-        $this->Tarif_HT = $Tarif_HT;
+        $this->TarifHt = $TarifHt;
 
         return $this;
     }
 
-    public function getVisib(): ?int
+    public function getVisib(): ?bool
     {
         return $this->Visib;
     }
 
-    public function setVisib(?int $Visib): self
+    public function setVisib(?bool $Visib): self
     {
         $this->Visib = $Visib;
 
@@ -133,12 +107,36 @@ class ProduitTarif
 
     public function getDateSys(): ?\DateTimeInterface
     {
-        return $this->Date_Sys;
+        return $this->DateSys;
     }
 
-    public function setDateSys(?\DateTimeInterface $Date_Sys): self
+    public function setDateSys(?\DateTimeInterface $DateSys): self
     {
-        $this->Date_Sys = $Date_Sys;
+        $this->DateSys = $DateSys;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->Produit;
+    }
+
+    public function setProduit(?Produit $Produit): self
+    {
+        $this->Produit = $Produit;
+
+        return $this;
+    }
+
+    public function getTarif(): ?TypeTarif
+    {
+        return $this->Tarif;
+    }
+
+    public function setTarif(?TypeTarif $Tarif): self
+    {
+        $this->Tarif = $Tarif;
 
         return $this;
     }

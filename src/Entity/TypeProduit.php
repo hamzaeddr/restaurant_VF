@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,40 +20,63 @@ class TypeProduit
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Type_Produit;
+    private $TypeProduit;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="TypeProduit")
      */
-    private $Type_produit;
+    private $produits;
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdTypeProduit(): ?int
+    public function getTypeProduit(): ?string
     {
-        return $this->Id_Type_Produit;
+        return $this->TypeProduit;
     }
 
-    public function setIdTypeProduit(int $Id_Type_Produit): self
+    public function setTypeProduit(string $TypeProduit): self
     {
-        $this->Id_Type_Produit = $Id_Type_Produit;
+        $this->TypeProduit = $TypeProduit;
 
         return $this;
     }
 
-    public function getTypeProduit(): ?string
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduits(): Collection
     {
-        return $this->Type_produit;
+        return $this->produits;
     }
 
-    public function setTypeProduit(?string $Type_produit): self
+    public function addProduit(Produit $produit): self
     {
-        $this->Type_produit = $Type_produit;
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setTypeProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getTypeProduit() === $this) {
+                $produit->setTypeProduit(null);
+            }
+        }
 
         return $this;
     }

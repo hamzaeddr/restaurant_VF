@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientBeneficiaireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,78 +20,75 @@ class ClientBeneficiaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_beneficiare;
+    private $IdBeneficiaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Client;
+    private $Beneficiaire;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
-     */
-    private $Benefiaciare;
-
-    /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Abrev;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Responsable;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Id_Tarif;
+    private $DateSys;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="clientBeneficiaires")
      */
-    private $Date_Sys;
+    private $Client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeTarif::class, inversedBy="clientBeneficiaires")
+     */
+    private $Tarif;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Carte::class, mappedBy="Beneficiaire")
+     */
+    private $cartes;
+
+    public function __construct()
+    {
+        $this->cartes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdBeneficiare(): ?string
+    public function getIdBeneficiaire(): ?string
     {
-        return $this->Id_beneficiare;
+        return $this->IdBeneficiaire;
     }
 
-    public function setIdBeneficiare(string $Id_beneficiare): self
+    public function setIdBeneficiaire(string $IdBeneficiaire): self
     {
-        $this->Id_beneficiare = $Id_beneficiare;
+        $this->IdBeneficiaire = $IdBeneficiaire;
 
         return $this;
     }
 
-    public function getIdClient(): ?Client
+    public function getBeneficiaire(): ?string
     {
-        return $this->Id_Client;
+        return $this->Beneficiaire;
     }
 
-    public function setIdClient(?Client $Id_Client): self
+    public function setBeneficiaire(string $Beneficiaire): self
     {
-        $this->Id_Client = $Id_Client;
-
-        return $this;
-    }
-
-    public function getBenefiaciare(): ?string
-    {
-        return $this->Benefiaciare;
-    }
-
-    public function setBenefiaciare(?string $Benefiaciare): self
-    {
-        $this->Benefiaciare = $Benefiaciare;
+        $this->Beneficiaire = $Beneficiaire;
 
         return $this;
     }
@@ -118,26 +117,68 @@ class ClientBeneficiaire
         return $this;
     }
 
-    public function getIdTarif(): ?int
+    public function getDateSys(): ?\DateTimeInterface
     {
-        return $this->Id_Tarif;
+        return $this->DateSys;
     }
 
-    public function setIdTarif(?int $Id_Tarif): self
+    public function setDateSys(?\DateTimeInterface $DateSys): self
     {
-        $this->Id_Tarif = $Id_Tarif;
+        $this->DateSys = $DateSys;
 
         return $this;
     }
 
-    public function getDateSys(): ?\DateTimeInterface
+    public function getClient(): ?Client
     {
-        return $this->Date_Sys;
+        return $this->Client;
     }
 
-    public function setDateSys(?\DateTimeInterface $Date_Sys): self
+    public function setClient(?Client $Client): self
     {
-        $this->Date_Sys = $Date_Sys;
+        $this->Client = $Client;
+
+        return $this;
+    }
+
+    public function getTarif(): ?TypeTarif
+    {
+        return $this->Tarif;
+    }
+
+    public function setTarif(?TypeTarif $Tarif): self
+    {
+        $this->Tarif = $Tarif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Carte[]
+     */
+    public function getCartes(): Collection
+    {
+        return $this->cartes;
+    }
+
+    public function addCarte(Carte $carte): self
+    {
+        if (!$this->cartes->contains($carte)) {
+            $this->cartes[] = $carte;
+            $carte->setBeneficiaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarte(Carte $carte): self
+    {
+        if ($this->cartes->removeElement($carte)) {
+            // set the owning side to null (unless already changed)
+            if ($carte->getBeneficiaire() === $this) {
+                $carte->setBeneficiaire(null);
+            }
+        }
 
         return $this;
     }

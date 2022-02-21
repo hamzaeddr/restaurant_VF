@@ -18,116 +18,80 @@ class CarteLg
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Carte_Lg;
+    private $IdCarteLg;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CarteRepartition::class)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $Id_Repartition;
+    private $StockCarte;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Produits::class)
-     */
-    private $Id_Produit;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Carte::class)
-     */
-    private $Id_Carte;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $Stock_Carte;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Unite;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $Stock_Cmd;
+    private $StockCmd;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $Stock_Carte_Temp;
+    private $StockCarteTemp;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $Stock_Reste;
+    private $StockReste;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Date_Sys;
+    private $DateSys;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CarteRepartition::class, inversedBy="carteLgs")
+     */
+    private $Repartition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Carte::class, inversedBy="carteLgs")
+     */
+    private $Carte;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="carteLgs")
+     */
+    private $Produit;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdCarteLg(): ?int
+    public function getIdCarteLg(): ?string
     {
-        return $this->Id_Carte_Lg;
+        return $this->IdCarteLg;
     }
 
-    public function setIdCarteLg(int $Id_Carte_Lg): self
+    public function setIdCarteLg(string $IdCarteLg): self
     {
-        $this->Id_Carte_Lg = $Id_Carte_Lg;
+        $this->IdCarteLg = $IdCarteLg;
 
         return $this;
     }
 
-    public function getIdRepartition(): ?CarteRepartition
+    public function getStockCarte(): ?int
     {
-        return $this->Id_Repartition;
+        return $this->StockCarte;
     }
 
-    public function setIdRepartition(?CarteRepartition $Id_Repartition): self
+    public function setStockCarte(?int $StockCarte): self
     {
-        $this->Id_Repartition = $Id_Repartition;
-
-        return $this;
-    }
-
-    public function getIdProduit(): ?Produits
-    {
-        return $this->Id_Produit;
-    }
-
-    public function setIdProduit(?Produits $Id_Produit): self
-    {
-        $this->Id_Produit = $Id_Produit;
-
-        return $this;
-    }
-
-    public function getIdCarte(): ?Carte
-    {
-        return $this->Id_Carte;
-    }
-
-    public function setIdCarte(?Carte $Id_Carte): self
-    {
-        $this->Id_Carte = $Id_Carte;
-
-        return $this;
-    }
-
-    public function getStockCarte(): ?string
-    {
-        return $this->Stock_Carte;
-    }
-
-    public function setStockCarte(?string $Stock_Carte): self
-    {
-        $this->Stock_Carte = $Stock_Carte;
+        $this->StockCarte = $StockCarte;
 
         return $this;
     }
@@ -146,48 +110,84 @@ class CarteLg
 
     public function getStockCmd(): ?int
     {
-        return $this->Stock_Cmd;
+        return $this->StockCmd;
     }
 
-    public function setStockCmd(?int $Stock_Cmd): self
+    public function setStockCmd(?int $StockCmd): self
     {
-        $this->Stock_Cmd = $Stock_Cmd;
+        $this->StockCmd = $StockCmd;
 
         return $this;
     }
 
     public function getStockCarteTemp(): ?int
     {
-        return $this->Stock_Carte_Temp;
+        return $this->StockCarteTemp;
     }
 
-    public function setStockCarteTemp(?int $Stock_Carte_Temp): self
+    public function setStockCarteTemp(?int $StockCarteTemp): self
     {
-        $this->Stock_Carte_Temp = $Stock_Carte_Temp;
+        $this->StockCarteTemp = $StockCarteTemp;
 
         return $this;
     }
 
-    public function getStockReste(): ?string
+    public function getStockReste(): ?int
     {
-        return $this->Stock_Reste;
+        return $this->StockReste;
     }
 
-    public function setStockReste(?string $Stock_Reste): self
+    public function setStockReste(?int $StockReste): self
     {
-        $this->Stock_Reste = $Stock_Reste;
+        $this->StockReste = $StockReste;
 
         return $this;
     }
 
     public function getDateSys(): ?\DateTimeInterface
     {
-        return $this->Date_Sys;
+        return $this->DateSys;
     }
 
-    public function setDateSys(?\DateTimeInterface $Date_Sys): self
+    public function setDateSys(?\DateTimeInterface $DateSys): self
     {
-        $this->Date_Sys = $Date_Sys;
+        $this->DateSys = $DateSys;
+
+        return $this;
+    }
+
+    public function getRepartition(): ?CarteRepartition
+    {
+        return $this->Repartition;
+    }
+
+    public function setRepartition(?CarteRepartition $Repartition): self
+    {
+        $this->Repartition = $Repartition;
+
+        return $this;
+    }
+
+    public function getCarte(): ?Carte
+    {
+        return $this->Carte;
+    }
+
+    public function setCarte(?Carte $Carte): self
+    {
+        $this->Carte = $Carte;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->Produit;
+    }
+
+    public function setProduit(?Produit $Produit): self
+    {
+        $this->Produit = $Produit;
 
         return $this;
     }
