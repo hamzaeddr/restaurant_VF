@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,20 +20,19 @@ class Client
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255)
      */
-    private $Id_Client;
+    private $IdClient;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $Client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeClient::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Type_Client;
+    private $TypeClient;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -39,40 +40,55 @@ class Client
     private $Morale;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeTarif::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Id_Tarif;
-
-    /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Contact;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Portable;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Email;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Obs;
 
     /**
-     * @ORM\Column(type="string", length=80, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $Active;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $Date_Sys;
+    private $DateSys;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeTarif::class, inversedBy="clients")
+     */
+    private $Tarif;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ClientBeneficiaire::class, mappedBy="Client")
+     */
+    private $clientBeneficiaires;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Carte::class, mappedBy="Client")
+     */
+    private $cartes;
+
+    public function __construct()
+    {
+        $this->clientBeneficiaires = new ArrayCollection();
+        $this->cartes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -81,12 +97,12 @@ class Client
 
     public function getIdClient(): ?string
     {
-        return $this->Id_Client;
+        return $this->IdClient;
     }
 
-    public function setIdClient(string $Id_Client): self
+    public function setIdClient(string $IdClient): self
     {
-        $this->Id_Client = $Id_Client;
+        $this->IdClient = $IdClient;
 
         return $this;
     }
@@ -96,21 +112,21 @@ class Client
         return $this->Client;
     }
 
-    public function setClient(?string $Client): self
+    public function setClient(string $Client): self
     {
         $this->Client = $Client;
 
         return $this;
     }
 
-    public function getTypeClient(): ?TypeClient
+    public function getTypeClient(): ?string
     {
-        return $this->Type_Client;
+        return $this->TypeClient;
     }
 
-    public function setTypeClient(?TypeClient $Type_Client): self
+    public function setTypeClient(?string $TypeClient): self
     {
-        $this->Type_Client = $Type_Client;
+        $this->TypeClient = $TypeClient;
 
         return $this;
     }
@@ -123,18 +139,6 @@ class Client
     public function setMorale(?int $Morale): self
     {
         $this->Morale = $Morale;
-
-        return $this;
-    }
-
-    public function getIdTarif(): ?TypeTarif
-    {
-        return $this->Id_Tarif;
-    }
-
-    public function setIdTarif(?TypeTarif $Id_Tarif): self
-    {
-        $this->Id_Tarif = $Id_Tarif;
 
         return $this;
     }
@@ -187,12 +191,12 @@ class Client
         return $this;
     }
 
-    public function getActive(): ?string
+    public function getActive(): ?bool
     {
         return $this->Active;
     }
 
-    public function setActive(?string $Active): self
+    public function setActive(?bool $Active): self
     {
         $this->Active = $Active;
 
@@ -201,12 +205,84 @@ class Client
 
     public function getDateSys(): ?\DateTimeInterface
     {
-        return $this->Date_Sys;
+        return $this->DateSys;
     }
 
-    public function setDateSys(?\DateTimeInterface $Date_Sys): self
+    public function setDateSys(?\DateTimeInterface $DateSys): self
     {
-        $this->Date_Sys = $Date_Sys;
+        $this->DateSys = $DateSys;
+
+        return $this;
+    }
+
+    public function getTarif(): ?TypeTarif
+    {
+        return $this->Tarif;
+    }
+
+    public function setTarif(?TypeTarif $Tarif): self
+    {
+        $this->Tarif = $Tarif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClientBeneficiaire[]
+     */
+    public function getClientBeneficiaires(): Collection
+    {
+        return $this->clientBeneficiaires;
+    }
+
+    public function addClientBeneficiaire(ClientBeneficiaire $clientBeneficiaire): self
+    {
+        if (!$this->clientBeneficiaires->contains($clientBeneficiaire)) {
+            $this->clientBeneficiaires[] = $clientBeneficiaire;
+            $clientBeneficiaire->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClientBeneficiaire(ClientBeneficiaire $clientBeneficiaire): self
+    {
+        if ($this->clientBeneficiaires->removeElement($clientBeneficiaire)) {
+            // set the owning side to null (unless already changed)
+            if ($clientBeneficiaire->getClient() === $this) {
+                $clientBeneficiaire->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Carte[]
+     */
+    public function getCartes(): Collection
+    {
+        return $this->cartes;
+    }
+
+    public function addCarte(Carte $carte): self
+    {
+        if (!$this->cartes->contains($carte)) {
+            $this->cartes[] = $carte;
+            $carte->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarte(Carte $carte): self
+    {
+        if ($this->cartes->removeElement($carte)) {
+            // set the owning side to null (unless already changed)
+            if ($carte->getClient() === $this) {
+                $carte->setClient(null);
+            }
+        }
 
         return $this;
     }

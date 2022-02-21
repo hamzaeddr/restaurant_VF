@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -228,6 +227,7 @@ class ProduitController extends AbstractController
         return $response;
     }
     
+
     // ================ Route supprimer famille =================
     // ===============================================================
 
@@ -262,6 +262,7 @@ class ProduitController extends AbstractController
         $stm=$con->prepare($req);
         $stm->execute();
         $lstF= $stm->fetch();
+
         // dd($lstF);
         $req="select * from ptype_famille";
         $stm=$con->prepare($req);
@@ -276,6 +277,7 @@ class ProduitController extends AbstractController
         $response->setContent(json_encode($html));
         return $response;
     }
+
 
     // ================ Route mdifier famille =================
     // ===============================================================
