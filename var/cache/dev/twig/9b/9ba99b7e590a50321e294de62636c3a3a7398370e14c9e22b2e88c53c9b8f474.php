@@ -71,6 +71,6 @@ class __TwigTemplate_5c9c3a2f81a91396f4ded2695c73d78b2e33fe53b5a374e1abe0eb06f0f
 <?php else: ?>
 <?php echo \$view['form']->block(\$form, 'form_widget_simple')?>
 <?php endif ?>
-", "@Framework/Form/form_widget.html.php", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_widget.html.php");
+", "@Framework/Form/form_widget.html.php", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_widget.html.php");
     }
 }

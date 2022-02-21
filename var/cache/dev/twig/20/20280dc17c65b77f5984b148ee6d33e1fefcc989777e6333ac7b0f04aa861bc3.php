@@ -75,6 +75,6 @@ class __TwigTemplate_cf2632ac13a7243d557471602452bfd38c22a813ddb47bbcb8725bb29a2
         <?php endforeach; ?>
     </ul>
 <?php endif ?>
-", "@Framework/Form/form_errors.html.php", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_errors.html.php");
+", "@Framework/Form/form_errors.html.php", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\framework-bundle\\Resources\\views\\Form\\form_errors.html.php");
     }
 }

@@ -275,6 +275,6 @@ class __TwigTemplate_4af88e48aa8c5fec47276a6b9aa03f9576f0c32892890b7ebed95de21b0
     </body>
 </html>
 {% block after_html %}{% endblock %}
-", "@Twig/layout.html.twig", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\twig-bundle\\Resources\\views\\layout.html.twig");
+", "@Twig/layout.html.twig", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\twig-bundle\\Resources\\views\\layout.html.twig");
     }
 }

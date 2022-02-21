@@ -204,6 +204,6 @@ class __TwigTemplate_9ea52e193f7eb84fa152ec8bbbfc2d8f57ac50fa37f509a4e1f79c2c76f
         })|raw }}
     </div>
 {% endif %}
-", "@Twig/Exception/trace.html.twig", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\trace.html.twig");
+", "@Twig/Exception/trace.html.twig", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\trace.html.twig");
     }
 }

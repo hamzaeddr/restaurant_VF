@@ -477,6 +477,6 @@ class __TwigTemplate_fe4f0a11ce972510a55c34f3485221f4e928656adb09e3cff4dfffc0b4f
 {% block body %}
     {% include '@Twig/Exception/exception.html.twig' %}
 {% endblock %}
-", "@Twig/Exception/exception_full.html.twig", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\exception_full.html.twig");
+", "@Twig/Exception/exception_full.html.twig", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\exception_full.html.twig");
     }
 }

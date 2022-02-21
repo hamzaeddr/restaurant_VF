@@ -639,6 +639,6 @@ class __TwigTemplate_6660a8ecbcdb0b7d5b7237788e0ecd1ba9eb0894004a234b5493051b8ff
     });
 
 /*]]>*/</script>
-", "@Twig/base_js.html.twig", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\twig-bundle\\Resources\\views\\base_js.html.twig");
+", "@Twig/base_js.html.twig", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\twig-bundle\\Resources\\views\\base_js.html.twig");
     }
 }

@@ -97,6 +97,6 @@ class __TwigTemplate_500632af4220bfce9988c47ea6eb3834225360b837050de018375efefc4
         </div>
     </div>
 </div>
-", "@WebProfiler/Profiler/header.html.twig", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\header.html.twig");
+", "@WebProfiler/Profiler/header.html.twig", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\header.html.twig");
     }
 }

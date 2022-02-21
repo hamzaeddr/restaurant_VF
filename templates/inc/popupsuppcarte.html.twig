@@ -1,0 +1,42 @@
+<form method="POST" action="{{path('supprimercarte')}}">
+   
+     
+
+       
+        
+            <div class="modal-body ">
+               
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            ID Carte : <input type="text" name="idcartem" class="form-control" placeholder="ID Carte" value="{{list.ID_Carte}}" readonly>
+                            Nom Client : 
+                            <input type="text" name="client" class="form-control" placeholder="ID Carte" value="{{list.Client}}" readonly>
+                            Nom Beneficiaire : 
+                            <input type="text" name="beneficiaire" class="form-control" placeholder="ID Carte" value="{{list.Bénéficiaire}}" readonly>
+                        </div>
+                        <div class="col-lg-6">
+                            Date Validité : <input type="text" name="datevaliditem" class="form-control" placeholder="ID Carte" value="{{list.Date_Validité}}" readonly>
+                            Tarif : 
+                            <input type="text" name="tarif" class="form-control" placeholder="ID Carte" value="{{list.Tarif}}" readonly>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                        Observation : <textarea class="form-control" name="obsm" id="exampleFormControlTextarea1" rows="3" value="{{list.Obs}}" readonly ></textarea>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success ">Supprimer</button>
+                <button type="button" class="btn btn-danger">Fermer</button>
+            </div>
+            
+            
+        
+    </form>

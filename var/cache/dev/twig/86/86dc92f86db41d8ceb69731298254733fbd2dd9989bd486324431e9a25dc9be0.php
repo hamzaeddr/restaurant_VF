@@ -417,6 +417,6 @@ class __TwigTemplate_f26cd1df224469c6d710f83f5dd41988d9ef83ff8d03851af489523e124
     });
 })();
 </script>
-", "@WebProfiler/Profiler/settings.html.twig", "C:\\xampp\\htdocs\\Learn_again\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\settings.html.twig");
+", "@WebProfiler/Profiler/settings.html.twig", "C:\\xampp\\htdocs\\restaurant_VF\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\settings.html.twig");
     }
 }
